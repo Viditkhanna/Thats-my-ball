@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'game_state_controller.dart';
 
@@ -27,8 +28,12 @@ class BallPositionController extends GetxController {
 
   void changePosition() async {
     final size = Get.size;
-    _topMargin.value = _random.nextInt(size.height.toInt() - 200).toDouble();
-    _leftMargin.value = _random.nextInt(size.width.toInt() - 200).toDouble();
+    var cornerPadding =
+        ((size.height * 0.2) + AppBar().preferredSize.height).toInt();
+    _topMargin.value =
+        _random.nextInt(size.height.toInt() - cornerPadding).toDouble();
+    _leftMargin.value =
+        _random.nextInt(size.width.toInt() - cornerPadding).toDouble();
     changeSpeed();
   }
 
