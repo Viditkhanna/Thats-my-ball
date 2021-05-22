@@ -1,0 +1,36 @@
+import 'dart:async';
+import 'package:get/get.dart';
+import 'package:thats_my_ball/controllers/game_state_controller.dart';
+
+class GameTimerController extends GetxController {
+  GameTimerController() {
+    startTimer();
+  }
+
+  final GameStateController gameTimerController = Get.find();
+
+  Timer _timer;
+  var _timerDuration = 60.obs;
+
+  int get timerDuration => _timerDuration.value;
+
+  set timerDuration(val) {
+    _timerDuration.value = val;
+  }
+
+  startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timerDuration--;
+      if (timerDuration == 0) {
+        gameTimerController.stopGame();
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+}

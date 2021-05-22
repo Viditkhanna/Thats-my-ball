@@ -1,81 +1,54 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:get/get.dart';
+import 'package:thats_my_ball/controllers/ball_position_controller.dart';
+import 'package:thats_my_ball/controllers/game_points_controller.dart';
+import 'package:thats_my_ball/controllers/game_state_controller.dart';
 import 'widgets/game_timer.dart';
 
-class PlaygroundScreen extends StatefulWidget {
-  @override
-  _PlaygroundScreenState createState() => _PlaygroundScreenState();
-}
-
-class _PlaygroundScreenState extends State<PlaygroundScreen> {
-  double topMargin = 0;
-  double leftMargin = 0;
-  int points = 0;
-  int positionChangeSpeed = 1000; // In Milliseconds
-  final random = Random();
-  bool isGameOver = false;
-
-  @override
-  void initState() {
-    super.initState();
-    changePosition();
-  }
-
-  void changePosition() async {
-    await Future(() {});
-    final size = MediaQuery.of(context).size;
-    topMargin = random.nextInt(size.height.toInt() - 100).toDouble();
-    leftMargin = random.nextInt(size.width.toInt() - 100).toDouble();
-    changeSpeed();
-    setState(() {});
-  }
-
-  void changeSpeed() async {
-    await Future.delayed(Duration(milliseconds: positionChangeSpeed));
-    if (isGameOver) return;
-    positionChangeSpeed -= 2;
-    changePosition();
-  }
-
+class PlaygroundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final GameStateController gameStateController = Get.find();
+    final GamePointsController gamePointsCtrl = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: GameTimer(
-          onTimeOver: () {
-            isGameOver = true;
-          },
-        ),
+        title: GameTimer(),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'POINTS:  $points',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        child: GetX<GamePointsController>(
+          builder: (gamePointsCtrl) => Text(
+            'POINTS:  ${gamePointsCtrl.points}',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: topMargin, left: leftMargin),
-        child: InkWell(
-          hoverColor: Colors.blue.withOpacity(0.4),
-          splashColor: Colors.blue.withOpacity(0.8),
-          borderRadius: BorderRadius.circular(40),
-          onTap: isGameOver
-              ? null
-              : () {
-                  points += 10;
-                  setState(() {});
-                },
-          child: Ink(
-            height: size.height * 0.1,
-            width: size.height * 0.1,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
+      body: GetX<BallPositionController>(
+        builder: (ballPosition) => Container(
+          margin: EdgeInsets.only(
+            top: ballPosition.topMargin,
+            left: ballPosition.leftMargin,
+          ),
+          child: InkWell(
+            hoverColor: Colors.blue.withOpacity(0.4),
+            splashColor: Colors.blue.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(40),
+            onTap: gameStateController.currentState == GameState.END
+                ? null
+                : () {
+                    gamePointsCtrl.points = gamePointsCtrl.points + 10;
+                  },
+            child: Ink(
+              height: size.height * 0.1,
+              width: size.height * 0.1,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
