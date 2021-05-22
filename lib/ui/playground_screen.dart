@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:thats_my_ball/controllers/ball_position_controller.dart';
 import 'package:thats_my_ball/controllers/game_points_controller.dart';
 import 'package:thats_my_ball/controllers/game_state_controller.dart';
+import 'package:thats_my_ball/ui/widgets/game_over_card.dart';
 import 'package:thats_my_ball/ui/widgets/welcome_card.dart';
 import 'widgets/game_timer.dart';
 
@@ -16,6 +17,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
   void initState() {
     super.initState();
     showWelcomeDialog();
+    listenToGameEnd();
   }
 
   Future showWelcomeDialog() async {
@@ -26,6 +28,27 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
         builder: (context) {
           return Center(
             child: WelcomeCard(),
+          );
+        });
+  }
+
+  listenToGameEnd() {
+    final GameStateController gameStateCtrl = Get.find();
+    ever<GameState>(gameStateCtrl.stateRx, (state) {
+      if (state == GameState.END) {
+        showEndGameDialog();
+      }
+    });
+  }
+
+  Future showEndGameDialog() async {
+    await Future(() {});
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(
+            child: GameOverCard(),
           );
         });
   }
