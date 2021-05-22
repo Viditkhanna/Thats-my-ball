@@ -14,12 +14,21 @@ class BallPositionController extends GetxController {
   int _positionChangeSpeed = 1000; // In Milliseconds
 
   BallPositionController() {
+    _listenToGameState();
+  }
+
+  void _listenToGameState() {
     final GameStateController gameStateCtrl = Get.find();
     ever<GameState>(gameStateCtrl.stateRx, (state) {
       if (state == GameState.START) {
-        changePosition();
+        _initialize();
       }
     });
+  }
+
+  void _initialize() {
+    _positionChangeSpeed = 1000; // For when game is restarted
+    changePosition();
   }
 
   double get topMargin => _topMargin.value;

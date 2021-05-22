@@ -6,18 +6,28 @@ class GameTimerController extends GetxController {
   StreamSubscription gameStateStream;
 
   GameTimerController() {
+    _listenToGameState();
+  }
+
+  void _listenToGameState() {
     final GameStateController gameStateCtrl = Get.find();
     ever<GameState>(gameStateCtrl.stateRx, (state) {
       if (state == GameState.START) {
-        startTimer();
+        _initialize();
       }
     });
+  }
+
+  final RxInt _timerDuration = 60.obs;
+
+  void _initialize() {
+    _timerDuration.value = 60; // For when game is restarted
+    startTimer();
   }
 
   final GameStateController gameTimerController = Get.find();
 
   Timer _timer;
-  var _timerDuration = 60.obs;
 
   int get timerDuration => _timerDuration.value;
 
