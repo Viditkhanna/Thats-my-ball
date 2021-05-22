@@ -7,6 +7,8 @@ class GameStateController extends GetxController {
 
   GameState get currentState => _currentState.value;
 
+  Rx<GameState> get stateRx => _currentState;
+
   void startGame() {
     _currentState.value = GameState.START;
   }

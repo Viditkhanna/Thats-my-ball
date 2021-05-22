@@ -7,7 +7,7 @@ class GameTimerController extends GetxController {
 
   GameTimerController() {
     final GameStateController gameStateCtrl = Get.find();
-    gameStateStream = gameStateCtrl.currentState.obs.listen((state) {
+    ever<GameState>(gameStateCtrl.stateRx, (state) {
       if (state == GameState.START) {
         startTimer();
       }
