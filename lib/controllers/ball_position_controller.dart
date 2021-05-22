@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:get/get.dart';
 import 'game_state_controller.dart';
@@ -5,14 +6,19 @@ import 'game_state_controller.dart';
 class BallPositionController extends GetxController {
   final _random = Random();
   final GameStateController gameStateCtrl = Get.find();
-
+  StreamSubscription gameStateStream;
   var _topMargin = 0.0.obs;
   var _leftMargin = 0.0.obs;
 
   int _positionChangeSpeed = 1000; // In Milliseconds
 
   BallPositionController() {
-    changePosition();
+    final GameStateController gameStateCtrl = Get.find();
+    gameStateStream = gameStateCtrl.currentState.obs.listen((state) {
+      if (state == GameState.START) {
+        changePosition();
+      }
+    });
   }
 
   double get topMargin => _topMargin.value;
@@ -31,5 +37,11 @@ class BallPositionController extends GetxController {
     if (gameStateCtrl.currentState == GameState.END) return;
     _positionChangeSpeed -= 2;
     changePosition();
+  }
+
+  @override
+  void dispose() {
+    gameStateStream?.cancel();
+    super.dispose();
   }
 }

@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:thats_my_ball/controllers/game_state_controller.dart';
 
 class GameTimerController extends GetxController {
+  StreamSubscription gameStateStream;
+
   GameTimerController() {
-    startTimer();
+    final GameStateController gameStateCtrl = Get.find();
+    gameStateStream = gameStateCtrl.currentState.obs.listen((state) {
+      if (state == GameState.START) {
+        startTimer();
+      }
+    });
   }
 
   final GameStateController gameTimerController = Get.find();
@@ -30,6 +37,7 @@ class GameTimerController extends GetxController {
 
   @override
   void dispose() {
+    gameStateStream?.cancel();
     _timer?.cancel();
     super.dispose();
   }

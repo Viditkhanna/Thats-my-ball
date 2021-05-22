@@ -37,11 +37,11 @@ class PlaygroundScreen extends StatelessWidget {
             hoverColor: Colors.blue.withOpacity(0.4),
             splashColor: Colors.blue.withOpacity(0.8),
             borderRadius: BorderRadius.circular(40),
-            onTap: gameStateController.currentState == GameState.END
-                ? null
-                : () {
+            onTap: gameStateController.currentState == GameState.START
+                ? () {
                     gamePointsCtrl.points = gamePointsCtrl.points + 10;
-                  },
+                  }
+                : null,
             child: Ink(
               height: size.height * 0.1,
               width: size.height * 0.1,

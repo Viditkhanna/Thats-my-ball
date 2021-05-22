@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 
-enum GameState { PLAYING, PAUSE, END }
+enum GameState { IDLE, START, PAUSE, END }
 
 class GameStateController extends GetxController {
-  var _currentState = GameState.PLAYING.obs;
+  var _currentState = GameState.IDLE.obs;
 
   GameState get currentState => _currentState.value;
 
-  void pauseGame() {
-    _currentState.value = GameState.PAUSE;
+  void startGame() {
+    _currentState.value = GameState.START;
   }
 
-  void resumeGame() {
-    _currentState.value = GameState.PLAYING;
+  void pauseGame() {
+    _currentState.value = GameState.PAUSE;
   }
 
   void stopGame() {
