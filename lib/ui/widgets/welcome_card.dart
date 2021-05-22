@@ -28,7 +28,7 @@ class WelcomeCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'Click on the ball as many time as you can to get the maximum score',
+                  'Click on the ball as many time as you can to get the maximum score.',
                   style: textTheme.headline6,
                 ),
               ),

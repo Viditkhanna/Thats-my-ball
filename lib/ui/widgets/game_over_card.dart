@@ -19,7 +19,7 @@ class GameOverCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "The Developer thanks you playing 'THAT'S MY BALL'",
+                  "The Developer thanks you for playing 'THAT'S MY BALL'",
                   textAlign: TextAlign.center,
                   style: textTheme.headline4,
                 ),
@@ -28,7 +28,7 @@ class GameOverCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'The game is under development, stay tuned for more',
+                  'The game is under development, stay tuned for more.',
                   style: textTheme.headline6,
                 ),
               ),
