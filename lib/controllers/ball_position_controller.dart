@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thats_my_ball/utils/device_config.dart';
 import 'game_state_controller.dart';
 
 class BallPositionController extends GetxController {
@@ -10,10 +11,14 @@ class BallPositionController extends GetxController {
   StreamSubscription gameStateStream;
   var _topMargin = 0.0.obs;
   var _leftMargin = 0.0.obs;
-
-  int _positionChangeSpeed = 700; // In Milliseconds
+  var defaultSpeed = 0; // In Milliseconds
+  int _positionChangeSpeed = 0;
 
   BallPositionController() {
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      defaultSpeed = DeviceConfig.isPC ? 700 : 500;
+      _positionChangeSpeed = defaultSpeed;
+    });
     _listenToGameState();
   }
 
@@ -27,7 +32,7 @@ class BallPositionController extends GetxController {
   }
 
   void _initialize() {
-    _positionChangeSpeed = 700; // For when game is restarted
+    _positionChangeSpeed = defaultSpeed; // For when game is restarted
     changePosition();
   }
 
@@ -36,7 +41,7 @@ class BallPositionController extends GetxController {
   double get leftMargin => _leftMargin.value;
 
   void changePosition() async {
-    final size = Get.size;
+    final size = DeviceConfig.size;
     var cornerPadding =
         ((size.height * 0.2) + AppBar().preferredSize.height).toInt();
     _topMargin.value =
