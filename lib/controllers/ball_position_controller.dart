@@ -11,7 +11,7 @@ class BallPositionController extends GetxController {
   var _topMargin = 0.0.obs;
   var _leftMargin = 0.0.obs;
 
-  int _positionChangeSpeed = 1000; // In Milliseconds
+  int _positionChangeSpeed = 700; // In Milliseconds
 
   BallPositionController() {
     _listenToGameState();
@@ -27,7 +27,7 @@ class BallPositionController extends GetxController {
   }
 
   void _initialize() {
-    _positionChangeSpeed = 1000; // For when game is restarted
+    _positionChangeSpeed = 700; // For when game is restarted
     changePosition();
   }
 
