@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thats_my_ball/controllers/ball_position_controller.dart';
-import 'package:thats_my_ball/controllers/game_points_controller.dart';
-import 'package:thats_my_ball/controllers/game_state_controller.dart';
-import 'package:thats_my_ball/ui/widgets/game_over_card.dart';
-import 'package:thats_my_ball/ui/widgets/welcome_card.dart';
-import 'widgets/game_timer.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
+import 'package:thats_my_ball/ui/widgets/widgets.dart';
 
 class PlaygroundScreen extends StatefulWidget {
   @override
@@ -60,7 +56,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
     final GamePointsController gamePointsCtrl = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: GameTimer(),
+        title: GameTimerText(),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:thats_my_ball/controllers/game_state_controller.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 
 class GameTimerController extends GetxController {
-  StreamSubscription gameStateStream;
-
   GameTimerController() {
     _listenToGameState();
   }
@@ -47,7 +45,6 @@ class GameTimerController extends GetxController {
 
   @override
   void dispose() {
-    gameStateStream?.cancel();
     _timer?.cancel();
     super.dispose();
   }

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import 'game_state_controller.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 
 class GamePointsController extends GetxController {
   GamePointsController() {

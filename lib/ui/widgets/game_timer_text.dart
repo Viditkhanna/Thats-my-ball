@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thats_my_ball/controllers/game_timer_controller.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 
-class GameTimer extends StatelessWidget {
+class GameTimerText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetX<GameTimerController>(

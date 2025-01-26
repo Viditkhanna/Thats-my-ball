@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thats_my_ball/controllers/game_state_controller.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 
 class GameOverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GameStateController gameStateCtrl = Get.find();
     final textTheme = Theme.of(context).textTheme;
+
     return Card(
       margin: EdgeInsets.all(12),
       child: Padding(

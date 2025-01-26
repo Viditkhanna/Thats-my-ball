@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thats_my_ball/controllers/game_state_controller.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 
 class WelcomeCard extends StatelessWidget {
   @override

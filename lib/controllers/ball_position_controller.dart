@@ -2,16 +2,17 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thats_my_ball/controllers/controllers.dart';
 import 'package:thats_my_ball/utils/device_config.dart';
-import 'game_state_controller.dart';
 
 class BallPositionController extends GetxController {
   final _random = Random();
   final GameStateController gameStateCtrl = Get.find();
-  StreamSubscription gameStateStream;
+
   var _topMargin = 0.0.obs;
   var _leftMargin = 0.0.obs;
   var defaultSpeed = 0; // In Milliseconds
+
   int _positionChangeSpeed = 0;
 
   BallPositionController() {
@@ -56,11 +57,5 @@ class BallPositionController extends GetxController {
     if (gameStateCtrl.currentState == GameState.END) return;
     _positionChangeSpeed -= 2;
     changePosition();
-  }
-
-  @override
-  void dispose() {
-    gameStateStream?.cancel();
-    super.dispose();
   }
 }
